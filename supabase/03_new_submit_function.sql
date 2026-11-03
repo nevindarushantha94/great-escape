@@ -1,0 +1,22 @@
+-- STEP 3 of 4. NEW 5-PARAMETER submit_event_rsvp.
+-- I cannot write the function body for you because your original definition was not available and I will not invent it.
+-- Paste the definition returned by query A in 02_read_only_checks.sql into the SQL Editor, make ONLY these 5 edits, then run it.
+-- (Or paste that definition to me and I will prepare the finished SQL.)
+--
+--  1. First line: use  create function public.submit_event_rsvp(  (NOT "create or replace"). Keep the same schema.
+--  2. Add one parameter at the END of the list:   p_alcohol_preference boolean     (no DEFAULT. A default would
+--     make the old and new versions ambiguous for the website.)
+--  3. Next to the existing validations add:
+--        if p_alcohol_preference is null then raise exception 'Alcohol preference is required'; end if;
+--  4. In the existing INSERT, add the column  alcohol_preference  to the column list and  p_alcohol_preference
+--     to the VALUES list. It must stay a plain INSERT: no ON CONFLICT, no UPDATE.
+--  5. Change nothing else: keep SECURITY DEFINER / search_path exactly as they are, keep every name, mobile and
+--     deadline check, and keep the duplicate-mobile check and its message (it must still contain "already registered").
+--
+-- The old 4-parameter function STAYS for now, so the currently deployed site keeps working until step 4.
+--
+-- THEN run the permission statements below (they fail harmlessly with "function does not exist" if the types
+-- do not match your function. Check the signature from query A, or run 04's check query).
+-- Functions are executable by PUBLIC by default, so revoke first, then grant only what is needed.
+revoke all on function public.submit_event_rsvp(text, text, boolean, text, boolean) from public;
+grant execute on function public.submit_event_rsvp(text, text, boolean, text, boolean) to anon, authenticated;
