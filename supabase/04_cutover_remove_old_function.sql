@@ -1,4 +1,4 @@
--- STEP 4 of 4. Run ONLY AFTER: (a) step 3 is done, (b) the new website is deployed on Netlify,
+-- STEP 4 of 4. Run ONLY AFTER: (a) step 3 is done, (b) the new website is deployed on Vercel,
 -- (c) you submitted one real test RSVP from it and saw the row (with alcohol_preference filled) in Table Editor.
 --
 -- Removes the old 4-parameter public route so there is only ONE way to submit an RSVP.

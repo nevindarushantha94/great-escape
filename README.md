@@ -2,11 +2,11 @@
 
 ## Folder structure
 ```
-netlify.toml          tells Netlify to publish the "site" folder
-site/
-  index.html          the six-scene invitation (the only page)
-  images/             hero-1600.jpg, hero-900.jpg, pavilion.jpg, resort-pool.jpg
-supabase/             SQL to run in the Supabase SQL Editor, in numeric order
+index.html            the six-scene invitation (the only page, at the project root)
+images/               hero-1600.jpg, hero-900.jpg, pavilion.jpg, resort-pool.jpg
+vercel.json           security + cache headers for Vercel
+.gitignore
+supabase/             SQL to run in the Supabase SQL Editor, in numeric order (not deployed)
   01_add_alcohol_column.sql
   02_read_only_checks.sql
   03_new_submit_function.sql
@@ -17,16 +17,20 @@ supabase/             SQL to run in the Supabase SQL Editor, in numeric order
 1. **Supabase, run `01_add_alcohol_column.sql`.** Adds the `alcohol_preference` column only. Safe; the live site is unaffected.
 2. **Supabase, run the queries in `02_read_only_checks.sql`** one at a time. They only read. Copy the result of query A.
 3. **Supabase, create the new 5-parameter function** using `03_new_submit_function.sql`. I did not have your original function definition, so that file gives the 5 exact edits to make to *your* definition (or send me the output of query A and I will prepare the finished SQL). Then run the two permission lines at the bottom of that file. The old function still exists, so nothing breaks yet.
-4. **Netlify, deploy the new site** (below).
+4. **Vercel, deploy the new site** (below).
 5. **Test once for real**: submit an RSVP on the live site, confirm the row in Table Editor has `alcohol_preference` filled, then delete the test row.
 6. **Supabase, run `04_cutover_remove_old_function.sql`.** Removes the old 4-parameter function so there is only one public submission route. Check 1 in that file must show exactly one row.
 
 If you deploy the new site before step 3, RSVPs will fail (the site calls a function that does not exist yet). If you skip step 6, the old route stays open and can create RSVPs with no alcohol answer.
 
-## Deploy to Netlify
-1. Netlify > Add new site > Deploy manually.
-2. Drag the whole project folder (the one containing `netlify.toml` and `site/`) into the drop zone. Dragging only `site/` also works.
-3. Open the site URL and check: envelope opens, the four photos load, the live list in scene 6 appears.
+## Deploy to Vercel (via GitHub)
+1. Push this whole folder to a GitHub repository (`index.html` must be at the repo root).
+2. Vercel > Add New > Project > import the repository.
+3. Framework Preset: **Other**. Leave Build Command, Output Directory and Install Command empty. Deploy.
+4. Open the site URL and check: envelope opens, the four photos load, the live list in scene 6 appears.
+5. Every later `git push` to the main branch redeploys automatically.
+
+(CLI alternative: `npm i -g vercel`, then `vercel --prod` from this folder.)
 
 ## Download RSVP records as CSV
 Only signed-in members of your Supabase project can see this table.

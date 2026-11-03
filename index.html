@@ -1,0 +1,461 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>THE GREAT ESCAPE | You are invited</title>
+<meta name="description" content="THE GREAT ESCAPE. Saturday, 28 November 2026 at Paaruwa Nature Resort. Leave the Routine... Enjoy the Escape!">
+<meta name="theme-color" content="#1E3B2C">
+<meta property="og:title" content="THE GREAT ESCAPE | You are invited">
+<meta property="og:description" content="Saturday, 28 November 2026 at Paaruwa Nature Resort. One Team. One Day. Countless Memories.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Jost:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{--ivory:#F8F3E6;--champ:#EADFC4;--forest:#1E3B2C;--deep:#112418;--sage:#97AC86;--gold:#B39358;--goldtx:#76602F;--goldlt:#DCC48C;--ink:#24352B;
+--serif:"Cormorant Garamond",Georgia,"Times New Roman",serif;--sans:Jost,system-ui,-apple-system,"Segoe UI",Arial,sans-serif;--ease:cubic-bezier(.2,.7,.2,1)}
+*{box-sizing:border-box}
+html,body{height:100%;margin:0}
+body{background:var(--ivory);color:var(--ink);font:400 1.02rem/1.6 var(--sans);overflow:hidden;-webkit-font-smoothing:antialiased}
+h1,h2,h3,p{margin:0}
+button,input{font:inherit;color:inherit}
+:focus-visible{outline:2px solid var(--gold);outline-offset:3px}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+#stage{position:fixed;inset:0}
+.scene{position:absolute;inset:0;opacity:0;visibility:hidden;transform:translateX(5%);filter:blur(6px);transition:opacity .8s var(--ease),transform .8s var(--ease),filter .8s var(--ease),visibility 0s .8s}
+.scene[data-p=before]{transform:translateX(-5%)}
+.scene[data-p=on]{opacity:1;visibility:visible;transform:none;filter:none;transition-delay:0s}
+.in{position:absolute;inset:0;overflow-y:auto;display:flex;flex-direction:column;padding:5rem 1.4rem 6.2rem;text-align:center}
+.in>.c{margin:auto;width:100%;max-width:640px}
+.in>.c.wide{max-width:900px}
+h1,h2{font-family:var(--serif);font-weight:500;line-height:1.08;color:var(--forest);outline:none}
+h2{font-size:clamp(2rem,7vw,3.1rem)}
+.lead{font-size:1.08rem;max-width:34ch;margin:1.2rem auto 0}
+.slg{font-family:var(--serif);font-style:italic;font-size:1.3rem;color:var(--goldtx);margin-top:1.4rem}
+.btn{display:inline-block;border:1px solid var(--forest);background:var(--forest);color:var(--ivory);padding:.8rem 1.7rem;border-radius:99px;text-decoration:none;cursor:pointer;letter-spacing:.02em;transition:background .3s,color .3s}
+.btn:hover{background:var(--deep)}
+.btn.ghost{background:transparent;color:var(--forest)}
+.btn.ghost:hover{background:var(--forest);color:var(--ivory)}
+/* motion: entrance on the active scene only */
+.a{opacity:1}
+.scene[data-p=on] .a{animation:rise .9s var(--ease) both;animation-delay:calc(.35s + var(--d,0)*.14s)}
+.words span{display:inline-block}
+.scene[data-p=on] .words span{animation:wd .9s var(--ease) both;animation-delay:calc(.35s + var(--i)*.065s)}
+@keyframes rise{from{opacity:0;transform:translateY(16px)}}
+@keyframes wd{from{opacity:0;transform:translateY(.45em);filter:blur(5px)}}
+@keyframes sway{to{transform:rotate(3deg)}}
+.dec{position:absolute;width:96px;color:var(--sage);opacity:.38;pointer-events:none;transform-origin:50% 100%;transform:rotate(-3deg)}
+.scene[data-p=on] .dec{animation:sway 8s ease-in-out infinite alternate}
+.dec.tl{top:3.5rem;left:-8px}.dec.br{bottom:5rem;right:-8px;transform:scaleX(-1) rotate(-3deg)}
+.dec.br{animation-direction:alternate-reverse}
+/* top bar and navigation */
+.top,.nav{position:fixed;left:0;right:0;z-index:20;display:flex;align-items:center;gap:.8rem;padding:.9rem 1.1rem;opacity:0;pointer-events:none;transition:opacity .6s .2s}
+.top{top:0;padding-top:max(.9rem,env(safe-area-inset-top))}
+.nav{bottom:0;justify-content:space-between;padding-bottom:max(1rem,env(safe-area-inset-bottom))}
+body.opened .top,body.opened .nav{opacity:1;pointer-events:auto}
+.prog{display:flex;gap:6px;flex:1;max-width:340px}
+.seg{flex:1;height:18px;border:0;background:none;padding:0;cursor:pointer;position:relative}
+.seg::after{content:"";position:absolute;left:0;right:0;top:8px;height:2px;border-radius:2px;background:currentColor;opacity:.22;transition:opacity .4s}
+.seg[aria-current=step]::after,.seg.seen::after{opacity:.9;background:var(--gold)}
+.top,.nav{color:var(--forest)}
+body[data-tone=dark] .top,body[data-tone=dark] .nav{color:var(--ivory)}
+.pill{margin-left:auto;border:1px solid currentColor;background:transparent;border-radius:99px;padding:.35rem 1.05rem;font-size:.92rem;cursor:pointer;transition:opacity .3s,background .3s,color .3s}
+.pill:hover{background:var(--gold);border-color:var(--gold);color:var(--deep)}
+body.on-rsvp .pill{visibility:hidden}
+.nb{min-width:7rem;border-radius:99px;padding:.8rem 1.4rem;cursor:pointer;border:1px solid currentColor;background:transparent;transition:background .3s,color .3s,opacity .3s}
+.nb.next{background:var(--forest);border-color:var(--forest);color:var(--ivory)}
+body[data-tone=dark] .nb.next{background:var(--goldlt);border-color:var(--goldlt);color:var(--deep)}
+.nb[hidden]{display:block;visibility:hidden}
+/* 1 envelope */
+#s0{background:radial-gradient(ellipse at 50% 40%,#FBF7EC,var(--champ))}
+#s0 .in{align-items:center;justify-content:center}
+.env{position:relative;width:min(84vw,400px);aspect-ratio:1.5;perspective:900px;filter:drop-shadow(0 18px 28px rgba(18,36,24,.28))}
+.env>*{position:absolute}
+.env .back{inset:0;background:#142B1E;border-radius:4px}
+.env .letter{left:6%;right:6%;top:7%;bottom:7%;z-index:2;background:var(--ivory);border:1px solid var(--gold);display:grid;place-content:center;gap:.3rem;transition:transform 1.1s .6s var(--ease)}
+.letter b{font:500 clamp(1.2rem,5.4vw,1.75rem)/1.1 var(--serif);color:var(--forest)}
+.letter i{font:italic 500 1rem var(--serif);color:var(--goldtx)}
+.env .pocket{inset:0;z-index:3;background:var(--forest);clip-path:polygon(0 0,50% 56%,100% 0,100% 100%,0 100%);border-radius:4px}
+.env .flap{left:0;right:0;top:0;height:60%;z-index:4;background:#27493A;clip-path:polygon(0 0,100% 0,50% 97%);transform-origin:50% 0}
+.env .seal{left:50%;top:58%;width:58px;height:58px;margin:-29px 0 0 -29px;z-index:5;border-radius:50%;border:0;cursor:pointer;background:radial-gradient(circle at 35% 30%,#E8D29B,var(--gold) 60%,#8C6F36);color:var(--deep);font:600 1.35rem var(--serif);box-shadow:0 3px 8px rgba(0,0,0,.35);transition:transform .4s,opacity .5s}
+.env .seal:hover{transform:scale(1.07)}
+.env.opening .seal{opacity:0;transform:scale(.6);pointer-events:none}
+.env.opening .flap{animation:flap .9s var(--ease) forwards}
+.env.opening .letter{transform:translateY(-58%)}
+@keyframes flap{0%{transform:rotateX(0);z-index:4}49%{z-index:4}50%{z-index:1}100%{transform:rotateX(180deg);z-index:1}}
+.hint{margin-top:2.2rem;font:italic 500 1.15rem var(--serif);color:var(--goldtx);transition:opacity .5s}
+.env.opening~.hint{opacity:0}
+.scene[data-p=on] .hint{animation:pulse 2.8s ease-in-out infinite}
+@keyframes pulse{50%{opacity:.45}}
+/* 2 message */
+#s1 .q{font-size:clamp(1.9rem,6.8vw,3rem);max-width:15em;margin:0 auto}
+.fin{font-family:var(--serif);font-size:clamp(1.5rem,5vw,2rem);color:var(--forest);margin-top:1.8rem}
+/* 3 destination */
+#s2{background:var(--deep)}
+.bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.scene[data-p=on] .bg{animation:kb 20s ease-out both}
+@keyframes kb{from{transform:scale(1.12)}to{transform:scale(1)}}
+#s2::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(17,36,24,.35),rgba(17,36,24,.15) 35%,rgba(17,36,24,.88));pointer-events:none}
+#s2 .in{z-index:2;color:var(--ivory)}
+#s2 h2{color:var(--ivory);font-size:clamp(2.2rem,8vw,3.8rem)}
+#s2 .in>.c{margin-bottom:0}
+.frames{display:flex;justify-content:center;gap:.9rem;margin-bottom:1.8rem}
+.arch{margin:0;width:min(34vw,170px);aspect-ratio:3/4;border-radius:999px 999px 6px 6px;overflow:hidden;border:1px solid var(--goldlt);clip-path:inset(0 0 0 0 round 999px 999px 6px 6px)}
+.arch img{width:100%;height:100%;object-fit:cover;display:block}
+.scene[data-p=on] .arch{animation:reveal 1.3s var(--ease) both;animation-delay:calc(.7s + var(--d)*.25s)}
+@keyframes reveal{from{clip-path:inset(100% 0 0 0 round 999px 999px 6px 6px)}}
+.when{font:italic 500 1.35rem var(--serif);color:var(--goldlt);margin-top:.7rem}
+#s2 .btn{margin-top:1.4rem;background:var(--ivory);color:var(--forest);border-color:var(--ivory)}
+/* 4 details */
+#s3{background:linear-gradient(180deg,var(--ivory),var(--champ))}
+.cd{display:grid;grid-template-columns:repeat(4,1fr);gap:.6rem;margin:1.5rem auto;max-width:420px}
+.cd div{border:1px solid var(--gold);border-radius:10px;padding:.7rem .2rem .5rem;background:rgba(255,255,255,.45)}
+.cd b{display:block;font:500 clamp(1.9rem,8vw,2.6rem)/1 var(--serif);color:var(--forest);font-variant-numeric:tabular-nums}
+.cd span{font-size:.8rem;color:var(--goldtx)}
+.cd b.tick{animation:tick .45s var(--ease)}
+@keyframes tick{from{transform:translateY(-35%);opacity:0}}
+.rows{display:grid;gap:.15rem;text-align:left;max-width:440px;margin:0 auto}
+.rows p{display:grid;grid-template-columns:7.4rem 1fr;gap:.8rem;align-items:baseline;padding:.5rem 0;border-bottom:1px solid rgba(179,147,88,.4)}
+.rows small{font-size:.86rem;color:var(--goldtx)}
+.rows b{font:600 1.22rem/1.25 var(--serif);color:var(--forest)}
+.rows b span{display:block;font:400 .9rem/1.4 var(--sans);color:var(--ink);margin-top:.15rem}
+.go{margin-top:1.3rem}
+/* 5 rsvp */
+.card{background:#fff;border:1px solid rgba(179,147,88,.55);border-radius:16px;padding:1.4rem 1.3rem;text-align:left;margin-top:1.4rem;box-shadow:0 10px 30px rgba(30,59,44,.08);position:relative;overflow:hidden}
+.field{margin-bottom:1.05rem}
+label.f,legend.f{display:block;font-weight:500;font-size:.92rem;margin-bottom:.35rem;padding:0}
+input[type=text],input[type=tel]{width:100%;padding:.8rem .9rem;border:1px solid #BBB59F;border-radius:10px;background:var(--ivory);font-size:1rem}
+input[type=text]:focus,input[type=tel]:focus{outline:2px solid var(--gold);border-color:var(--gold)}
+.hn{font-size:.82rem;color:#5b6a5f;margin-top:.3rem}
+.err{color:#9A2B1F;font-size:.86rem;min-height:1.1em;margin-top:.2rem}
+.banner{display:none;background:#FBEDE9;border:1px solid #D79C92;color:#7A2418;border-radius:10px;padding:.7rem .9rem;margin-bottom:1rem;font-size:.94rem}
+.choices{display:grid;gap:.55rem}
+.choices.two{grid-template-columns:1fr 1fr}
+.choices>div{position:relative}
+.choices input{position:absolute;opacity:0}
+.choices label{display:block;padding:.8rem 1rem;border:1px solid #BBB59F;border-radius:10px;cursor:pointer;transition:all .25s}
+.choices input:checked+label{background:var(--forest);border-color:var(--forest);color:var(--ivory)}
+.choices input:focus-visible+label{outline:2px solid var(--gold);outline-offset:3px}
+.submit{width:100%;padding:.95rem;border:0;border-radius:99px;background:var(--forest);color:var(--ivory);cursor:pointer;font-weight:500;transition:background .3s}
+.submit:hover{background:var(--deep)}.submit:disabled{opacity:.65;cursor:wait}
+.note{font-size:.82rem;color:#5b6a5f;margin-top:.8rem;text-align:center}
+.closedmsg{display:none;text-align:center}
+.done{display:none;text-align:center;padding:.6rem 0 .2rem}
+.card.sent form{display:none}.card.sent .done{display:block}
+.chk{width:84px;height:84px;display:block;margin:0 auto .6rem}
+.chk circle,.chk path{fill:none;stroke:var(--gold);stroke-width:3;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:1;stroke-dashoffset:1}
+.card.sent .chk circle{animation:draw .9s var(--ease) forwards}
+.card.sent .chk path{animation:draw .6s .7s var(--ease) forwards}
+@keyframes draw{to{stroke-dashoffset:0}}
+.done h3{font:500 1.8rem/1.15 var(--serif);color:var(--forest)}
+.done p{margin:.5rem 0 1.1rem}
+.badge{display:inline-block;border:1px solid var(--gold);border-radius:99px;padding:.25rem .9rem;font-size:.9rem;color:var(--goldtx);margin-top:.5rem}
+.pet{position:absolute;inset:0;pointer-events:none;overflow:hidden}
+.pet i{position:absolute;top:-12px;width:9px;height:14px;border-radius:70% 0 70% 0;background:var(--sage);opacity:0;animation:fall var(--t) linear var(--dl) forwards}
+@keyframes fall{10%{opacity:.9}to{opacity:0;transform:translate(var(--x),380px) rotate(360deg)}}
+/* 6 celebration */
+#s5{background:radial-gradient(ellipse at 50% 0,#1E3B2C,var(--deep))}
+#s5 h2,#s5 .fin{color:var(--ivory)}
+#s5 .dec{color:var(--sage);opacity:.3}
+.counts{display:grid;grid-template-columns:1fr 1fr;gap:.9rem;margin:1.4rem 0 1rem}
+.counts div{border:1px solid rgba(220,196,140,.55);border-radius:14px;padding:.9rem .4rem}
+.counts strong{display:block;font:500 3rem/1 var(--serif);color:var(--goldlt)}
+.counts span{font-size:.92rem;color:#D7E0CF}
+.lists{display:grid;grid-template-columns:1fr 1fr;gap:.9rem;text-align:left}
+.lists h3{font:600 1.1rem var(--serif);color:var(--goldlt);margin-bottom:.3rem}
+.names{list-style:none;margin:0;padding:0 .3rem 0 0;max-height:18vh;overflow-y:auto;font-size:.94rem;color:#EFF2E8}
+.names li{padding:.18rem 0;border-bottom:1px solid rgba(255,255,255,.1)}
+.names .none{color:#A9B8A0;font-style:italic}
+.live{font-size:.8rem;color:#A9B8A0;margin-top:.7rem}
+.live::before{content:"";display:inline-block;width:7px;height:7px;border-radius:50%;background:#7FD08A;margin-right:.45rem;animation:pulse 2s infinite}
+.close{margin-top:2rem;padding-top:1.6rem;border-top:1px solid rgba(220,196,140,.35)}
+.close .re{max-width:34ch;margin:.9rem auto 1.2rem;color:#E6EBDD}
+#s5 .btn{background:var(--goldlt);border-color:var(--goldlt);color:var(--deep)}
+.sign{font:italic 500 1.15rem var(--serif);color:var(--goldlt);margin-top:1.2rem}
+@media(max-width:380px){.lists{grid-template-columns:1fr}.names{max-height:12vh}}
+@media(min-width:760px){.in{padding:5.5rem 3rem 6rem}.frames .arch{width:170px}.names{max-height:22vh}}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition-duration:.01ms!important;transition-delay:0s!important}.pet{display:none}.chk circle,.chk path{stroke-dashoffset:0}}
+</style>
+</head>
+<body data-tone="light">
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs><symbol id="sprig" viewBox="0 0 120 260"><path d="M60 258C57 190 63 120 60 10" fill="none" stroke="currentColor" stroke-width="2"/><g fill="currentColor"><ellipse cx="60" cy="16" rx="8" ry="18"/><ellipse cx="38" cy="205" rx="26" ry="9" transform="rotate(-35 38 205)"/><ellipse cx="82" cy="190" rx="26" ry="9" transform="rotate(35 82 190)"/><ellipse cx="38" cy="150" rx="25" ry="9" transform="rotate(-35 38 150)"/><ellipse cx="82" cy="136" rx="25" ry="9" transform="rotate(35 82 136)"/><ellipse cx="40" cy="96" rx="22" ry="8" transform="rotate(-35 40 96)"/><ellipse cx="80" cy="82" rx="22" ry="8" transform="rotate(35 80 82)"/><ellipse cx="44" cy="50" rx="17" ry="7" transform="rotate(-35 44 50)"/><ellipse cx="76" cy="40" rx="17" ry="7" transform="rotate(35 76 40)"/></g></symbol></defs></svg>
+<noscript><p style="padding:2rem;text-align:center">Please enable JavaScript to open your invitation to THE GREAT ESCAPE, Saturday, 28 November 2026, Paaruwa Nature Resort.</p></noscript>
+
+<header class="top">
+  <div class="prog" id="prog"></div>
+  <button class="pill" id="rsvpGo" type="button">RSVP</button>
+</header>
+
+<main id="stage">
+
+<section class="scene" id="s0" aria-label="Opening">
+  <div class="in"><div class="c" style="display:flex;flex-direction:column;align-items:center">
+    <h1 class="sr" tabindex="-1">THE GREAT ESCAPE. You are invited.</h1>
+    <div class="env" id="env">
+      <div class="back"></div>
+      <div class="letter"><b>THE GREAT ESCAPE</b><i>Saturday, 28 November 2026</i></div>
+      <div class="pocket"></div><div class="flap"></div>
+      <button class="seal" id="open" type="button" aria-label="Open the invitation">GE</button>
+    </div>
+    <p class="hint">Touch the seal to open</p>
+  </div></div>
+  <svg class="dec tl" viewBox="0 0 120 260" aria-hidden="true"><use href="#sprig"/></svg>
+  <svg class="dec br" viewBox="0 0 120 260" aria-hidden="true"><use href="#sprig"/></svg>
+</section>
+
+<section class="scene" id="s1" aria-label="Our message">
+  <svg class="dec tl" viewBox="0 0 120 260" aria-hidden="true"><use href="#sprig"/></svg>
+  <svg class="dec br" viewBox="0 0 120 260" aria-hidden="true"><use href="#sprig"/></svg>
+  <div class="in"><div class="c">
+    <h2 class="q words" tabindex="-1">Some bonds never fade, and some memories are always worth reliving.</h2>
+    <p class="lead a" style="--d:6">We are bringing our department together for a day of laughter, connection and unforgettable memories.</p>
+    <p class="slg a" style="--d:7">One Team. One Day. Countless Memories.</p>
+  </div></div>
+</section>
+
+<section class="scene" id="s2" aria-label="The destination">
+  <img class="bg" fetchpriority="low" src="images/hero-900.jpg" srcset="images/hero-900.jpg 900w, images/hero-1600.jpg 1600w" sizes="100vw" width="1600" height="1067" alt="A garden dining table beside the pool at Paaruwa Nature Resort" decoding="async">
+  <div class="in"><div class="c">
+    <div class="frames">
+      <figure class="arch" style="--d:0"><img src="images/pavilion.jpg" width="447" height="447" alt="A thatched pavilion beside the pool" loading="lazy" decoding="async"></figure>
+      <figure class="arch" style="--d:1"><img src="images/resort-pool.jpg" width="592" height="404" alt="The pool and resort building among tropical plants" loading="lazy" decoding="async"></figure>
+    </div>
+    <h2 class="words" tabindex="-1">Paaruwa Nature Resort</h2>
+    <p class="when a" style="--d:4">Saturday, 28 November 2026</p>
+    <a class="btn a" style="--d:5" href="https://maps.app.goo.gl/tC8K5BL9aB5GeJeJ8" target="_blank" rel="noopener">Explore the location</a>
+  </div></div>
+</section>
+
+<section class="scene" id="s3" aria-label="Event details">
+  <svg class="dec br" viewBox="0 0 120 260" aria-hidden="true"><use href="#sprig"/></svg>
+  <div class="in"><div class="c">
+    <h2 class="words" tabindex="-1">The escape begins in</h2>
+    <div class="cd a" style="--d:3" role="timer" aria-label="Countdown to 28 November 2026, 9:00 AM">
+      <div><b id="cdD">0</b><span>Days</span></div><div><b id="cdH">00</b><span>Hours</span></div><div><b id="cdM">00</b><span>Minutes</span></div><div><b id="cdS">00</b><span>Seconds</span></div>
+    </div>
+    <p class="slg" id="cdEnd" style="display:none">THE GREAT ESCAPE has begun!</p>
+    <div class="rows a" style="--d:4">
+      <p><small>Date</small><b>Saturday, 28 November 2026</b></p>
+      <p><small>Time</small><b>09:00 AM</b></p>
+      <p><small>Venue</small><b>Paaruwa Nature Resort</b></p>
+      <p><small>Participation</small><b>LKR 5,000 per person</b></p>
+      <p><small>Transport</small><b>Not included<span>Private transport is encouraged wherever possible.</span></b></p>
+      <p><small>RSVP deadline</small><b>10 November 2026</b></p>
+    </div>
+    <div class="go a" style="--d:5"><a class="btn ghost" href="https://maps.app.goo.gl/tC8K5BL9aB5GeJeJ8" target="_blank" rel="noopener">Open in Google Maps</a></div>
+  </div></div>
+</section>
+
+<section class="scene" id="s4" aria-label="RSVP">
+  <div class="in"><div class="c">
+    <h2 class="words" tabindex="-1">We would love to have you with us</h2>
+    <div class="card a" id="card" style="--d:3">
+      <div class="pet" id="pet" aria-hidden="true"></div>
+      <div class="closedmsg" id="closed"><h3 style="font:500 1.6rem var(--serif);color:var(--forest)">RSVPs are now closed</h3><p style="margin-top:.5rem">The RSVP deadline of 10 November 2026 has passed. Please contact your department organiser if you still wish to take part.</p></div>
+      <form id="form" novalidate>
+        <div class="banner" id="banner" role="alert"></div>
+        <div class="field"><label class="f" for="name">Full name</label><input type="text" id="name" autocomplete="name" maxlength="60" placeholder="e.g. Nimali Perera"><div class="err" id="nameErr"></div></div>
+        <div class="field"><label class="f" for="mobile">Mobile number</label><input type="tel" id="mobile" autocomplete="tel" inputmode="tel" maxlength="16" placeholder="07X XXX XXXX"><div class="hn">Used only to identify your reply. It is never shown publicly.</div><div class="err" id="mobileErr"></div></div>
+        <fieldset class="field" style="border:0;padding:0;margin:0 0 1.05rem"><legend class="f">Will you be joining us?</legend>
+          <div class="choices"><div><input type="radio" name="att" id="yes" value="yes"><label for="yes">Yes, I'll be there!</label></div><div><input type="radio" name="att" id="no" value="no"><label for="no">Sorry, I can't make it</label></div></div>
+          <div class="err" id="attErr"></div></fieldset>
+        <fieldset class="field" style="border:0;padding:0;margin:0 0 1.05rem"><legend class="f">Would you like to have alcoholic beverages at the event?</legend>
+          <div class="choices two"><div><input type="radio" name="alc" id="alcYes" value="yes"><label for="alcYes">Yes</label></div><div><input type="radio" name="alc" id="alcNo" value="no"><label for="alcNo">No</label></div></div>
+          <div class="hn">This information is collected for event planning purposes only.</div>
+          <div class="err" id="alcErr"></div></fieldset>
+        <button class="submit" id="btn" type="submit">Send my reply</button>
+        <p class="note">RSVP closes on 10 November 2026 (Sri Lanka time). To change a reply you have already sent, please contact the organiser.</p>
+      </form>
+      <div class="done" aria-live="polite">
+        <svg class="chk" viewBox="0 0 80 80" aria-hidden="true"><circle cx="40" cy="40" r="35" pathLength="1"/><path d="M24 41l11 11 21-23" pathLength="1"/></svg>
+        <h3 id="doneH"></h3><span class="badge" id="doneB"></span><p id="doneP"></p>
+        <button class="btn" id="toLive" type="button">See who is joining</button>
+      </div>
+    </div>
+  </div></div>
+</section>
+
+<section class="scene" id="s5" aria-label="The celebration">
+  <svg class="dec tl" viewBox="0 0 120 260" aria-hidden="true"><use href="#sprig"/></svg>
+  <div class="in"><div class="c wide">
+    <h2 class="words" tabindex="-1">Who is joining the escape?</h2>
+    <div class="counts a" style="--d:3"><div><strong id="cYes">–</strong><span>Confirmed</span></div><div><strong id="cNo">–</strong><span>Unable to join</span></div></div>
+    <div class="lists a" style="--d:4"><div><h3>Confirmed</h3><ul class="names" id="lYes"></ul></div><div><h3>Unable to join</h3><ul class="names" id="lNo"></ul></div></div>
+    <p class="live" id="live">Updating live</p>
+    <div class="close">
+      <p class="fin" style="margin-top:0">Leave the Routine... Enjoy the Escape!</p>
+      <p class="re">Please share this invitation with former department colleagues who are no longer in the WhatsApp group. Some bonds never fade.</p>
+      <a class="btn" id="share" href="#" target="_blank" rel="noopener">Share on WhatsApp</a>
+      <p class="sign">Looking forward to making memories together.</p>
+    </div>
+  </div></div>
+</section>
+</main>
+
+<nav class="nav" aria-label="Invitation navigation">
+  <button class="nb" id="back" type="button">Back</button>
+  <button class="nb next" id="next" type="button">Continue</button>
+</nav>
+
+<script>
+/* ===== SETTINGS (existing Supabase project, unchanged) ===== */
+const SUPABASE_URL = "https://osozawfbksjcqojyipxg.supabase.co";
+const SUPABASE_KEY = "sb_publishable_HJUVtnm7MiiYuXDeMLScxg_6VMHg-cZ"; // publishable key: safe for browsers
+const DEADLINE = new Date("2026-11-10T23:59:59+05:30");      // end of 10 Nov, Sri Lanka time
+const EVENT_START = new Date("2026-11-28T09:00:00+05:30");   // 9:00 AM Sri Lanka time
+const REFRESH_MS = 30000, ATTEND_YES = true, ATTEND_NO = false;
+
+const $ = id => document.getElementById(id);
+const RM = matchMedia("(prefers-reduced-motion: reduce)").matches;
+const scenes = [...document.querySelectorAll(".scene")];
+const NAMES = ["Opening","Our message","The destination","Event details","RSVP","The celebration"];
+let cur = 0, busy = false, opening = false, cdTimer = null, liveTimer = null;
+
+/* word-by-word headings */
+document.querySelectorAll(".words").forEach(el => {
+  const w = el.textContent.trim().split(/\s+/); el.textContent = "";
+  w.forEach((t, i) => { const s = document.createElement("span"); s.style.setProperty("--i", i); s.textContent = t; el.append(s, " "); });
+});
+
+/* progress indicator */
+NAMES.forEach((n, i) => {
+  const b = document.createElement("button"); b.type = "button"; b.className = "seg";
+  b.setAttribute("aria-label", "Scene " + (i + 1) + " of 6: " + n); b.onclick = () => go(i);
+  $("prog").append(b);
+});
+
+function go(n) {
+  if (n < 0 || n > 5 || opening) return;
+  cur = n;
+  scenes.forEach((s, i) => { s.dataset.p = i < n ? "before" : i > n ? "after" : "on"; s.inert = i !== n; s.setAttribute("aria-hidden", i !== n); });
+  document.body.classList.toggle("opened", n > 0);
+  document.body.classList.toggle("on-rsvp", n === 4);
+  document.body.dataset.tone = (n === 2 || n === 5) ? "dark" : "light";
+  document.querySelectorAll(".seg").forEach((b, i) => { i === n ? b.setAttribute("aria-current", "step") : b.removeAttribute("aria-current"); b.classList.toggle("seen", i < n); });
+  $("back").hidden = n === 0;
+  $("next").hidden = n === 5;
+  $("next").textContent = n === 4 ? "See who is joining" : "Continue";
+  clearInterval(cdTimer); clearInterval(liveTimer);
+  if (n === 3) { tickCd(); cdTimer = setInterval(tickCd, 1000); }
+  if (n === 5) { loadSummary(); liveTimer = setInterval(() => { if (!document.hidden) loadSummary(); }, REFRESH_MS); }
+  if (n === 0) setTimeout(() => { if (cur === 0) $("env").classList.remove("opening"); }, 900);
+  const h = scenes[n].querySelector("h1,h2"); if (h) setTimeout(() => h.focus({ preventScroll: true }), 50);
+}
+
+/* envelope */
+$("open").onclick = () => {
+  if (opening) return;
+  if (RM) { go(1); return; }
+  opening = true; $("env").classList.add("opening");
+  setTimeout(() => { opening = false; go(1); }, 2100);
+};
+$("back").onclick = () => go(cur - 1);
+$("next").onclick = () => go(cur + 1);
+$("rsvpGo").onclick = () => go(4);
+$("toLive").onclick = () => go(5);
+addEventListener("keydown", e => {
+  if (/INPUT|TEXTAREA/.test(document.activeElement.tagName) || e.altKey || e.ctrlKey || e.metaKey) return;
+  if (cur > 0 && e.key === "ArrowRight") go(cur + 1);
+  if (cur > 0 && e.key === "ArrowLeft") go(cur - 1);
+});
+let tx = 0, ty = 0;
+addEventListener("touchstart", e => { tx = e.touches[0].clientX; ty = e.touches[0].clientY; }, { passive: true });
+addEventListener("touchend", e => {
+  if (cur === 0 || /INPUT/.test(e.target.tagName)) return;
+  const dx = e.changedTouches[0].clientX - tx, dy = e.changedTouches[0].clientY - ty;
+  if (Math.abs(dx) > 70 && Math.abs(dx) > Math.abs(dy) * 1.6) go(cur + (dx < 0 ? 1 : -1));
+}, { passive: true });
+
+/* countdown */
+function setTick(id, v) { const el = $(id); if (el.textContent !== v) { el.textContent = v; if (!RM) { el.classList.remove("tick"); void el.offsetWidth; el.classList.add("tick"); } } }
+function tickCd() {
+  const ms = EVENT_START - Date.now();
+  if (ms <= 0) { document.querySelector(".cd").style.display = "none"; $("cdEnd").style.display = "block"; return; }
+  const s = Math.floor(ms / 1000), p = n => String(n).padStart(2, "0");
+  setTick("cdD", String(Math.floor(s / 86400))); setTick("cdH", p(Math.floor(s % 86400 / 3600)));
+  setTick("cdM", p(Math.floor(s % 3600 / 60))); setTick("cdS", p(s % 60));
+}
+
+/* Supabase RPC (names and parameters unchanged) */
+async function rpc(fn, body) {
+  const res = await fetch(`${SUPABASE_URL}/rest/v1/rpc/${fn}`, { method: "POST", headers: { "Content-Type": "application/json", apikey: SUPABASE_KEY }, body: JSON.stringify(body || {}) });
+  const text = await res.text(); let data = null; try { data = text ? JSON.parse(text) : null; } catch (e) { data = { message: text }; }
+  if (!res.ok) { const e = new Error((data && (data.message || data.hint)) || "Request failed"); e.status = res.status; throw e; }
+  return data;
+}
+const isClosed = () => Date.now() > DEADLINE.getTime();
+function applyClosed() { const c = isClosed(); $("closed").style.display = c ? "block" : "none"; $("form").style.display = c ? "none" : ""; }
+applyClosed(); setInterval(applyClosed, 60000);
+
+/* validation */
+const cleanName = v => v.replace(/\s+/g, " ").trim();
+function normMobile(v) { let d = v.replace(/[\s\-().]/g, ""); if (/^\+?94\d{9}$/.test(d)) d = "0" + d.replace(/^\+?94/, ""); return /^07\d{8}$/.test(d) ? d : null; }
+function validate() {
+  let ok = true; $("nameErr").textContent = $("mobileErr").textContent = $("attErr").textContent = $("alcErr").textContent = "";
+  const name = cleanName($("name").value);
+  if (name.length < 2 || name.length > 60 || !/^[\p{L}][\p{L}\s.'’\-]*$/u.test(name)) { $("nameErr").textContent = "Please enter your full name (letters only)."; ok = false; }
+  const mobile = normMobile($("mobile").value);
+  if (!mobile) { $("mobileErr").textContent = "Please enter a valid mobile number, e.g. 0771234567."; ok = false; }
+  const sel = document.querySelector('input[name="att"]:checked');
+  if (!sel) { $("attErr").textContent = "Please choose yes or no."; ok = false; }
+  const alc = document.querySelector('input[name="alc"]:checked');
+  if (!alc) { $("alcErr").textContent = "Please choose yes or no."; ok = false; }
+  return ok ? { name, mobile, yes: sel.value === "yes", alc: alc.value === "yes" } : null;
+}
+const banner = m => { const b = $("banner"); b.textContent = m; b.style.display = m ? "block" : "none"; };
+
+$("form").addEventListener("submit", async e => {
+  e.preventDefault(); if (busy) return; banner("");
+  if (isClosed()) { applyClosed(); return; }
+  const v = validate(); if (!v) return;
+  busy = true; $("btn").disabled = true; $("btn").textContent = "Sending…";
+  try {
+    await rpc("submit_event_rsvp", { p_full_name: v.name, p_mobile: v.mobile, p_attending: v.yes ? ATTEND_YES : ATTEND_NO, p_transport: "not_applicable", p_alcohol_preference: v.alc });
+    showDone(v.yes); loadSummary();
+  } catch (err) {
+    const m = (err.message || "").toLowerCase();
+    if (m.includes("already") || m.includes("duplicate") || err.status === 409) banner("This mobile number has already registered. Please contact the organiser if you need to change your response.");
+    else if (m.includes("closed") || m.includes("deadline")) banner("RSVPs are now closed.");
+    else if (!navigator.onLine || err instanceof TypeError) banner("We couldn't reach the server. Please check your internet connection and try again.");
+    else banner("Sorry, we couldn't save your reply just now. Please try again in a moment.");
+    console.error("RSVP error:", err);
+  } finally { busy = false; $("btn").disabled = false; $("btn").textContent = "Send my reply"; }
+});
+function showDone(yes) {
+  $("doneH").textContent = "Your response has been received. Thank you!";
+  $("doneB").textContent = yes ? "Your response: Attending" : "Your response: Not attending";
+  $("doneP").textContent = yes ? "We look forward to seeing you at THE GREAT ESCAPE on Saturday, 28 November 2026 at 09:00 AM." : "We are sorry you cannot join us. You will be missed, and thank you for letting us know.";
+  const pet = $("pet"); pet.textContent = "";
+  if (yes && !RM) for (let i = 0; i < 18; i++) { const s = document.createElement("i"); s.style.cssText = `left:${Math.random() * 100}%;--x:${(Math.random() - .5) * 80}px;--t:${2.4 + Math.random() * 1.8}s;--dl:${Math.random() * .9}s`; pet.append(s); }
+  $("card").classList.add("sent");
+}
+
+/* live summary: names and counts only, never mobile numbers */
+const toList = v => Array.isArray(v) ? v.filter(Boolean).map(String) : typeof v === "string" ? v.split(",").map(s => s.trim()).filter(Boolean) : [];
+function fill(ul, names) {
+  ul.textContent = "";
+  if (!names.length) { const li = document.createElement("li"); li.className = "none"; li.textContent = "No one yet"; ul.append(li); return; }
+  names.forEach(n => { const li = document.createElement("li"); li.textContent = n; ul.append(li); });
+}
+function countTo(el, to) {
+  const from = Number(el.dataset.v) || 0; el.dataset.v = to;
+  if (RM || from === to) { el.textContent = to; return; }
+  const t0 = performance.now();
+  (function f(t) { const k = Math.min(1, (t - t0) / 900); el.textContent = Math.round(from + (to - from) * (1 - Math.pow(1 - k, 3))); if (k < 1) requestAnimationFrame(f); })(t0);
+}
+async function loadSummary() {
+  try {
+    let d = await rpc("get_event_rsvp_summary", {}); if (Array.isArray(d)) d = d[0]; d = d || {};
+    const y = toList(d.confirmed_names), n = toList(d.declined_names);
+    countTo($("cYes"), Number(d.confirmed_count ?? y.length)); countTo($("cNo"), Number(d.declined_count ?? n.length));
+    fill($("lYes"), y); fill($("lNo"), n); $("live").textContent = "Updating live";
+  } catch (err) { $("live").textContent = "The live list is temporarily unavailable. We will keep trying."; console.error("Summary error:", err); }
+}
+
+/* WhatsApp share */
+$("share").href = "https://wa.me/?text=" + encodeURIComponent("You are invited to THE GREAT ESCAPE. Saturday, 28 November 2026 at Paaruwa Nature Resort. Leave the Routine... Enjoy the Escape!\n" + location.origin + location.pathname);
+
+go(0);
+</script>
+</body>
+</html>
