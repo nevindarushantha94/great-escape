@@ -3,7 +3,7 @@
 ## Folder structure
 ```
 index.html            the six-scene invitation (the only page, at the project root)
-images/               hero-1600.jpg, hero-900.jpg, pavilion.jpg, resort-pool.jpg
+images/               hero-1600.jpg, hero-900.jpg, pavilion.jpg, resort-pool.jpg, cill-logo.png
 vercel.json           security + cache headers for Vercel
 .gitignore
 supabase/             SQL to run in the Supabase SQL Editor, in numeric order (not deployed)
